@@ -3,13 +3,10 @@ Created on Feb 13, 2018
 
 @author: gustavo
 '''
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.action_chains import ActionChains
+
 
 class LoginPage(object):
     '''
@@ -32,8 +29,9 @@ class LoginPage(object):
         btn.click()
         return btn 
 
-    def wait4loginbox(self,browser,EMAIL,PASSWORD):
-        myElem = WebDriverWait(browser, self.DELAY).until(EC.presence_of_element_located((By.CLASS_NAME, "loginbox-v4__header")))
+    def login(self,browser,EMAIL,PASSWORD):
+        self.login_btn(browser)
+        WebDriverWait(browser, self.DELAY).until(EC.presence_of_element_located((By.CLASS_NAME, "loginbox-v4__header")))
         self.email(browser).send_keys(EMAIL)
         self.password(browser).send_keys(PASSWORD)
         self.submit(browser).click()
